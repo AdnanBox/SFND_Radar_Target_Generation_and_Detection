@@ -184,6 +184,7 @@ offset = 1.4;
    % Use RDM[x,y] as the matrix from the output of 2D FFT for implementing
    % CFAR
 RDM = RDM / max(RDM(:));
+TrainingCellsCount = (2*(TD+GD+1)*2*(TR+GR+1)-(GR*GD)-1);
 
 for i = TR+GR+1:(Nr/2)-(GR+TR)
     for j = TD+GD+1:Nd-(GD+TD)
@@ -201,7 +202,7 @@ for i = TR+GR+1:(Nr/2)-(GR+TR)
         end
         
         % Calculate threshould from noise average then add the offset
-        threshold = pow2db(noise_level/(2*(TD+GD+1)*2*(TR+GR+1)-(GR*GD)-1));
+        threshold = pow2db(noise_level/TrainingCellsCount);
         threshold = threshold + offset;
         CUT = RDM(i,j);
         
